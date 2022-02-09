@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BlogList from "./BlogList";
 
 const Home2 = () => {
-  const [blogs, setBlogs] = useState([
+  const [blogArray, setBlogs] = useState([
     {
       title: "My new wesbsite",
       body: "lorem ipsum...",
@@ -22,7 +22,7 @@ const Home2 = () => {
   return (
     <div className="home">
       {/* displaying the array */}
-      <BlogList blog= {blogs} title= "All Blogs!"/>
+      <BlogList blogs= {blogArray} title= "All Blogs!"/>
     </div>
   );
 };
