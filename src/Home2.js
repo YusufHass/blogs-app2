@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home2 = () => {
-  const [searchAuthor, setSearchAuthor] = useState();
-  const [blogArray, setBlogs] = useState(null);
-  const [name, setName]= useState('Mario')
-  const [isPending, setIsPending]= useState(true)
-  const [error, setError]= useState(null)
+  const {isPending, error, data:blogArray, name, searchAuthor, setSearchAuthor,setBlogs}= useFetch('http://localhost:8000/blogs');
+  
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
 
@@ -16,34 +14,6 @@ const Home2 = () => {
       console.log(newBlogs, id)
 
   }
-// useEffect always render when the function run
-  useEffect(()=>{
-    //you can use useEffect(async()) or .then as below for promise return
-
- setTimeout(()=>{
-  fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
-  .then (res=>{
-    if(!res.ok){
-      throw Error('Could not find the data with the link')//this error displayed in catch blocks
-    }
-    return res.json()
-  })
-  .then((data)=>{
-    console.log(data)
-    setBlogs(data)
-    setIsPending(false)
-    setError(null)
-  })
-  .catch (err=>{
-    console.log(err.message)//displays error in console
-    setError(err.message)//sets error 
-    setIsPending(false)
-  })
-
- }, 1000)//waits 1 second to display the data
-
-  },[name]);//adding the empty dependency makes the function run only intial render and
-  // if we pass value in the empty array then it renders only when the passed value is passed
 
   return (
     <div className="home">
