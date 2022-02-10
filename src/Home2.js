@@ -1,5 +1,5 @@
 import { getByDisplayValue } from "@testing-library/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 
 const Home2 = () => {
@@ -25,15 +25,23 @@ const Home2 = () => {
       id: 4,
     },
   ]);
+  const [name, setName]= useState('Mario')
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
 
     const newBlogs= blogArray.filter(blog=>
-      blog.id!==id);
+      blog.id!==id)
       setBlogs(newBlogs)
       console.log(newBlogs, id)
 
   }
+// useEffect always render when the function run
+  useEffect(()=>{
+    console.log('This is Effect');
+    console.log(blogArray)
+
+  },[name]);//adding the empty dependency makes the function run only intial render and
+  // if we pass value in the empty array then it renders only when the passed value is passed
 
   return (
     <div className="home">
@@ -58,12 +66,14 @@ const Home2 = () => {
 
 
       {/* displaying the array */}
-      <BlogList blogs={blogArray} title="All Blogs!" deleteHandler= {handleDelete} />
+      <BlogList blogs={blogArray} title="All Blogs!" deleteHandler={handleDelete} />
       {/* filtering the array and display specifc author work */}
       <BlogList
         blogs={blogArray.filter((blog) => blog.author == "Mario")}
         title="Mario's Blog"
       />
+            {name}
+      <button onClick={()=>setName('Khalid')}>Update name</button>
     </div>
   );
 };
