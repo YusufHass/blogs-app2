@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 const useFetch = (url) => {
 
   const [searchAuthor, setSearchAuthor] = useState();
-  const [data, setBlogs] = useState(null);
+  const [data, setData] = useState(null);
   const [name, setName]= useState('Mario')
   const [isPending, setIsPending]= useState(true)
   const [error, setError]= useState(null)
@@ -24,7 +24,7 @@ fetch(url) // we need to pass url instead of hardcode since we may need to pass 
   })
   .then((data)=>{
     console.log(data)
-    setBlogs(data)
+    setData(data)
     setIsPending(false)
     setError(null)
   })
@@ -41,7 +41,7 @@ fetch(url) // we need to pass url instead of hardcode since we may need to pass 
 
  // return [searchAuthor, data,name,isPending,error]// ordering of the array when distructuring them matters
 
-return {searchAuthor, data,name,isPending,error, setBlogs, setSearchAuthor}// we return the objects so we can use them in the other files and ordering when distructuring doesnt matter
+return {searchAuthor, data,name,isPending,error, setData, setSearchAuthor}// we return the objects so we can use them in the other files and ordering when distructuring doesnt matter
 }
 
 export default useFetch

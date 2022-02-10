@@ -3,7 +3,7 @@ import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 
 const Home2 = () => {
-  const {isPending, error, data:blogArray, name, searchAuthor, setSearchAuthor,setBlogs}= useFetch('http://localhost:8000/blogs');
+  const {isPending, error, data:blogArray, name, searchAuthor, setSearchAuthor,setData:setBlogs}= useFetch('http://localhost:8000/blogs');
   
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
