@@ -47,7 +47,7 @@ const Home2 = () => {
 
   return (
     <div className="home">
-      {/* searching by the author name */}
+      {/*searching by the author name */}
       <input
         style={{ width: "300px", padding: "5px", fontSize: "large" }}
         placeholder="search by author name" value={searchAuthor}
