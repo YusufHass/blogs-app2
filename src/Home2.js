@@ -6,6 +6,7 @@ const Home2 = () => {
   const [blogArray, setBlogs] = useState(null);
   const [name, setName]= useState('Mario')
   const [isPending, setIsPending]= useState(true)
+  const [error, setError]= useState(null)
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
 
@@ -20,13 +21,21 @@ const Home2 = () => {
     //you can use useEffect(async()) or .then as below for promise return
 
  setTimeout(()=>{
-  fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
+  fetch('http://localhost:8000/blog') // npx json-server --watch data/db.json --port 8000
   .then (res=>{
+    if(!res.ok){
+      throw Error('Could not find the data with the link')//this error displayed in catch blocks
+    }
     return res.json()
   })
   .then((data)=>{
     console.log(data)
     setBlogs(data)
+    setIsPending(false)
+  })
+  .catch (err=>{
+    console.log(err.message)//displays error in console
+    setError(err.message)//sets error 
     setIsPending(false)
   })
 
@@ -55,6 +64,7 @@ const Home2 = () => {
        </div>
      })}
    {console.log({searchAuthor})} */}
+   {error && <h2>{error}</h2>}
    {
      isPending && <h4>Loading...</h4>
    }
@@ -66,8 +76,6 @@ const Home2 = () => {
         blogs={blogArray.filter((blog) => blog.author == "mario")}
         title="Mario's Blog"
         />}
-            {name}
-      <button onClick={()=>setName('Khalid')}>Update name</button>
     </div>
   );
 };
