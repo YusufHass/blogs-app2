@@ -25,6 +25,15 @@ const Home2 = () => {
       id: 4,
     },
   ]);
+  // handleDelete function that will pass as props to BlogsList
+  const handleDelete= (id)=>{
+
+    const newBlogs= blogArray.filter(blog=>
+      blog.id!==id);
+      setBlogs(newBlogs)
+      console.log(newBlogs, id)
+
+  }
 
   return (
     <div className="home">
@@ -49,7 +58,7 @@ const Home2 = () => {
 
 
       {/* displaying the array */}
-      <BlogList blogs={blogArray} title="All Blogs!" />
+      <BlogList blogs={blogArray} title="All Blogs!" deleteHandler= {handleDelete} />
       {/* filtering the array and display specifc author work */}
       <BlogList
         blogs={blogArray.filter((blog) => blog.author == "Mario")}
