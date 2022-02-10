@@ -34,7 +34,7 @@ const Home2 = () => {
         placeholder="search by author name" value={searchAuthor}
         onChange= {(event)=>setSearchAuthor(event.target.value)}
       ></input>
-   {/* {blogArray.filter((blo)=>{
+   {blogArray.filter((blo)=>{
      if(searchAuthor==''){
        return blo
      }
@@ -45,16 +45,16 @@ const Home2 = () => {
                          <h1>Written by {val.author}</h1>
        </div>
      })}
-   {console.log({searchAuthor})} */}
+   {console.log({searchAuthor})}
 
 
       {/* displaying the array */}
       <BlogList blogs={blogArray} title="All Blogs!" />
       {/* filtering the array and display specifc author work */}
-      <BlogList
+      {/* <BlogList
         blogs={blogArray.filter((blog) => blog.author == "Mario")}
         title="Mario's Blog"
-      />
+      /> */}
     </div>
   );
 };
