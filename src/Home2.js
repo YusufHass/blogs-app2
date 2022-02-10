@@ -1,30 +1,9 @@
-import { getByDisplayValue } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 
 const Home2 = () => {
   const [searchAuthor, setSearchAuthor] = useState();
-  const [blogArray, setBlogs] = useState([
-    {
-      title: "My new wesbsite",
-      body: "lorem ipsum...",
-      author: "Mario",
-      id: 1,
-    },
-    { title: "Welcome party", body: "lorem ipsum...", author: "Moshi", id: 2 },
-    {
-      title: "Web dev top tips",
-      body: "lorem ipsum...",
-      author: "Mario",
-      id: 3,
-    },
-    {
-      title: "React for developer",
-      body: "lorem ipsum...",
-      author: "Yoshi",
-      id: 4,
-    },
-  ]);
+  const [blogArray, setBlogs] = useState(null);
   const [name, setName]= useState('Mario')
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
@@ -37,8 +16,16 @@ const Home2 = () => {
   }
 // useEffect always render when the function run
   useEffect(()=>{
-    console.log('This is Effect');
-    console.log(blogArray)
+    //you can use useEffect(async()) or .then as below
+
+ fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
+.then (res=>{
+  return res.json()
+})
+.then((data)=>{
+  console.log(data)
+  setBlogs(data)
+})
 
   },[name]);//adding the empty dependency makes the function run only intial render and
   // if we pass value in the empty array then it renders only when the passed value is passed
@@ -65,13 +52,14 @@ const Home2 = () => {
    {console.log({searchAuthor})} */}
 
 
-      {/* displaying the array */}
-      <BlogList blogs={blogArray} title="All Blogs!" deleteHandler={handleDelete} />
+      {/* displaying the array. We use logical bc first the array is null and wait till populating to 
+      blogArray to make the left correct and display the data */}
+      {blogArray && <BlogList blogs={blogArray} title="All Blogs!" deleteHandler={handleDelete} />}
       {/* filtering the array and display specifc author work */}
-      <BlogList
-        blogs={blogArray.filter((blog) => blog.author == "Mario")}
+     {blogArray && <BlogList
+        blogs={blogArray.filter((blog) => blog.author == "mario")}
         title="Mario's Blog"
-      />
+        />}
             {name}
       <button onClick={()=>setName('Khalid')}>Update name</button>
     </div>
