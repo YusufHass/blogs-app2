@@ -21,7 +21,7 @@ const Home2 = () => {
     //you can use useEffect(async()) or .then as below for promise return
 
  setTimeout(()=>{
-  fetch('http://localhost:8000/blog') // npx json-server --watch data/db.json --port 8000
+  fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
   .then (res=>{
     if(!res.ok){
       throw Error('Could not find the data with the link')//this error displayed in catch blocks
@@ -32,6 +32,7 @@ const Home2 = () => {
     console.log(data)
     setBlogs(data)
     setIsPending(false)
+    setError(null)
   })
   .catch (err=>{
     console.log(err.message)//displays error in console
