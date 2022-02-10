@@ -36,6 +36,7 @@ fetch(url) // we need to pass url instead of hardcode since we may need to pass 
 
  }, 1000)//waits 1 second to display the data
 
+ return console.log('Cleaned')
   },[url]);//adding the empty dependency makes the function run only intial render and
   // if we pass value in the empty array then it renders only when the passed value is passed
 
