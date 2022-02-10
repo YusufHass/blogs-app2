@@ -5,6 +5,7 @@ const Home2 = () => {
   const [searchAuthor, setSearchAuthor] = useState();
   const [blogArray, setBlogs] = useState(null);
   const [name, setName]= useState('Mario')
+  const [isPending, setIsPending]= useState(true)
   // handleDelete function that will pass as props to BlogsList
   const handleDelete= (id)=>{
 
@@ -16,16 +17,20 @@ const Home2 = () => {
   }
 // useEffect always render when the function run
   useEffect(()=>{
-    //you can use useEffect(async()) or .then as below
+    //you can use useEffect(async()) or .then as below for promise return
 
- fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
-.then (res=>{
-  return res.json()
-})
-.then((data)=>{
-  console.log(data)
-  setBlogs(data)
-})
+ setTimeout(()=>{
+  fetch('http://localhost:8000/blogs') // npx json-server --watch data/db.json --port 8000
+  .then (res=>{
+    return res.json()
+  })
+  .then((data)=>{
+    console.log(data)
+    setBlogs(data)
+    setIsPending(false)
+  })
+
+ }, 1000)//waits 1 second to display the data
 
   },[name]);//adding the empty dependency makes the function run only intial render and
   // if we pass value in the empty array then it renders only when the passed value is passed
@@ -50,8 +55,9 @@ const Home2 = () => {
        </div>
      })}
    {console.log({searchAuthor})} */}
-
-
+   {
+     isPending && <h4>Loading...</h4>
+   }
       {/* displaying the array. We use logical bc first the array is null and wait till populating to 
       blogArray to make the left correct and display the data */}
       {blogArray && <BlogList blogs={blogArray} title="All Blogs!" deleteHandler={handleDelete} />}
