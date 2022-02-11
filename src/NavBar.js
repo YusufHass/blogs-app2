@@ -14,7 +14,7 @@ const NavBar = () => {
     chnages the path through the browser */}
     <Link to='/create'>New Blog</Link>
     <Link to ='/update-name'>Update Name</Link>
-    <Link to ='/blog-details/:id'>Blog Details</Link>
+    <Link to ='/blog-details/1'>Blog Details</Link>
 
 
 

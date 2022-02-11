@@ -60,6 +60,8 @@
 }
 .blog-details div {
   margin: 20px 0;
+  margin-left: auto;
+  text-indent: 50px;
 }
 .blog-details button {
   background: #f1356d;
